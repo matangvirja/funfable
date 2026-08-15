@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToyNest — Toys that grow with your child</title>
+<meta name="description" content="Thoughtfully chosen, expert-reviewed toys mapped to real developmental milestones, for ages 0–12.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FDF6E9;
+    --cream-deep:#FBEFD8;
+    --blue:#4FB3E0;
+    --blue-deep:#2E8FBE;
+    --blue-pale:#EAF4FB;
+    --pink:#F9D2E0;
+    --pink-pale:#FDEDF3;
+    --rose-deep:#C15A80;
+    --orange:#F2884B;
+    --orange-deep:#D96A2E;
+    --green:#4FAE7D;
+    --green-deep:#38946A;
+    --green-pale:#EAF6EF;
+    --teal:#2C9C93;
+    --teal-deep:#22796F;
+    --teal-pale:#E7F5F3;
+    --coral:#F1685C;
+    --coral-deep:#D94B41;
+    --coral-pale:#FBEAE7;
+    --yellow:#FFC94A;
+    --amber-pale:#FDF1DD;
+    --navy:#1F3B57;
+    --text-muted:#5B6B7A;
+    --white:#FFFFFF;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:12px;
+    --shadow:0 10px 30px rgba(31,59,87,0.10);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--navy);
+    font-family:'Nunito',system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fredoka',system-ui,sans-serif;
+    font-weight:600;
+    margin:0;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; margin:0; padding:0; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  :focus-visible{
+    outline:3px solid var(--blue-deep);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .container{ width:100%; max-width:1180px; margin:0 auto; padding:0 24px; }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:0.85rem;
+    letter-spacing:0.02em;
+    padding:6px 16px;
+    border-radius:999px;
+  }
+  .eyebrow svg{ width:14px; height:14px; }
+
+  .section-title{
+    font-size:clamp(1.5rem,1.1rem + 1.5vw,2.1rem);
+    color:var(--navy);
+    margin-bottom:8px;
+  }
+  .section-lead{
+    color:var(--text-muted);
+    font-size:1rem;
+    max-width:540px;
+    margin:0 0 32px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:0.95rem;
+    padding:13px 28px;
+    border-radius:999px;
+    border:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--orange); color:var(--white); box-shadow:0 8px 20px rgba(242,136,75,0.35); }
+  .btn-primary:hover{ background:var(--orange-deep); }
+  .btn-ghost{
+    background:rgba(255,255,255,0.18);
+    color:var(--white);
+    border:1.5px solid rgba(255,255,255,0.55);
+  }
+  .btn-ghost:hover{ background:rgba(255,255,255,0.28); }
+  .btn-sm{ padding:9px 20px; font-size:0.85rem; }
+  .btn-teal{ background:var(--teal); color:var(--white); }
+  .btn-teal:hover{ background:var(--teal-deep); }
+  .btn-coral{ background:var(--coral); color:var(--white); }
+  .btn-coral:hover{ background:var(--coral-deep); }
+
+  .tag{
+    display:inline-block;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:0.68rem;
+    letter-spacing:0.01em;
+    padding:4px 10px;
+    border-radius:999px;
+    margin-top:8px;
+  }
+
+  /* ---------- Top trust bar ---------- */
+  .trust-bar{
+    background:var(--navy);
+    color:var(--white);
+    text-align:center;
+    font-family:'Fredoka',sans-serif;
+    font-weight:500;
+    font-size:0.82rem;
+    padding:9px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  }
+  .trust-bar svg{ width:15px; height:15px; flex-shrink:0; color:var(--green); }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(253,246,233,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--cream-deep);
+  }
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 24px; gap:16px; }
+  .logo{ display:flex; align-items:center; gap:8px; font-family:'Fredoka',sans-serif; font-weight:700; font-size:1.4rem; color:var(--navy); }
+  .logo span{ color:var(--orange); }
+
+  .nav-links{ display:flex; align-items:center; gap:32px; }
+  .nav-links a{
+    font-family:'Fredoka',sans-serif; font-weight:500; font-size:0.95rem; color:var(--navy);
+    padding:6px 2px; border-bottom:2px solid transparent;
+    transition:border-color 0.15s ease, color 0.15s ease;
+  }
+  .nav-links a:hover{ border-color:var(--orange); color:var(--orange-deep); }
+
+  .header-actions{ display:flex; align-items:center; gap:20px; }
+  .header-icon-link{ display:flex; align-items:center; gap:6px; font-family:'Fredoka',sans-serif; font-weight:500; font-size:0.9rem; color:var(--navy); position:relative; }
+  .header-icon-link svg{ width:20px; height:20px; flex-shrink:0; }
+  .cart-badge{
+    position:absolute; top:-8px; right:-10px; background:var(--coral); color:var(--white);
+    font-size:0.65rem; font-weight:800; width:16px; height:16px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  .menu-toggle{ display:none; background:none; border:none; padding:8px; }
+  .menu-toggle svg{ width:26px; height:26px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(90deg, var(--blue) 0%, var(--blue) 52%, var(--pink) 52%, var(--pink) 100%);
+    border-radius:0 0 40px 40px;
+  }
+  .hero-inner{
+    display:grid; grid-template-columns:1.05fr 0.95fr; align-items:center; gap:32px;
+    padding:56px 24px 44px; max-width:1180px; margin:0 auto;
+  }
+  .hero-copy .eyebrow{ background:rgba(255,255,255,0.25); color:var(--white); margin-bottom:18px; }
+  .hero-copy h1{ color:var(--white); font-size:clamp(2rem,1.3rem + 3vw,2.85rem); line-height:1.14; margin-bottom:16px; }
+  .hero-copy p{ color:rgba(255,255,255,0.92); font-size:1.05rem; max-width:440px; margin-bottom:26px; }
+  .hero-ctas{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:30px; }
+
+  .hero-trust-row{ display:flex; flex-wrap:wrap; gap:18px 26px; }
+  .hero-trust-item{ display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.92); font-size:0.82rem; font-family:'Fredoka',sans-serif; font-weight:500; }
+  .hero-trust-item svg{ width:18px; height:18px; flex-shrink:0; }
+
+  .hero-art{ position:relative; aspect-ratio:1/0.85; }
+  .hero-art svg{ width:100%; height:100%; }
+
+  @media (prefers-reduced-motion:no-preference){
+    .float{ animation:float 4.5s ease-in-out infinite; }
+    .float-slow{ animation:float 6s ease-in-out infinite; }
+    .float-delay{ animation-delay:1.2s; }
+    @keyframes float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+  }
+
+  /* ---------- Age / stage pills ---------- */
+  .stage-section{ padding:34px 24px 8px; }
+  .stage-pills{ display:flex; flex-wrap:wrap; justify-content:center; gap:16px; max-width:980px; margin:0 auto; }
+  .stage-pill{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    min-width:150px; color:var(--white); padding:14px 20px; border-radius:20px;
+    box-shadow:var(--shadow); transition:transform 0.15s ease;
+  }
+  .stage-pill:hover{ transform:translateY(-3px); }
+  .stage-pill strong{ font-family:'Fredoka',sans-serif; font-weight:600; font-size:0.98rem; }
+  .stage-pill span{ font-size:0.72rem; opacity:0.9; margin-top:2px; }
+  .stage-pill.blue{ background:var(--blue-deep); }
+  .stage-pill.coral{ background:var(--coral); }
+  .stage-pill.green{ background:var(--green); }
+  .stage-pill.teal{ background:var(--teal); }
+
+  /* ---------- Shop by skill ---------- */
+  .skills{ padding:64px 24px 12px; }
+  .skill-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:20px; }
+  .skill-card{
+    background:var(--white); border-radius:var(--radius-md); padding:22px 20px;
+    box-shadow:var(--shadow); transition:transform 0.2s ease;
+  }
+  .skill-card:hover{ transform:translateY(-4px); }
+  .skill-icon{ width:46px; height:46px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+  .skill-icon svg{ width:24px; height:24px; }
+  .skill-card h3{ font-size:0.98rem; margin-bottom:5px; }
+  .skill-card p{ font-size:0.82rem; color:var(--text-muted); margin:0; }
+
+  /* ---------- Popular toys ---------- */
+  .popular{ padding:64px 24px; }
+  .popular-header{ text-align:center; margin-bottom:40px; }
+  .popular-header .section-lead{ margin-left:auto; margin-right:auto; }
+
+  .product-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:24px; }
+  .product-card{ background:var(--white); border-radius:var(--radius-lg); padding:18px; box-shadow:var(--shadow); transition:transform 0.2s ease, box-shadow 0.2s ease; }
+  .product-card:hover{ transform:translateY(-6px); box-shadow:0 16px 34px rgba(31,59,87,0.16); }
+  .product-thumb{ border-radius:var(--radius-md); aspect-ratio:1/0.85; display:flex; align-items:center; justify-content:center; margin-bottom:16px; overflow:hidden; }
+  .product-thumb svg{ width:72%; height:72%; }
+  .product-card h3{ font-size:1.05rem; margin-bottom:2px; }
+  .product-price-row{ display:flex; align-items:center; justify-content:space-between; margin-top:14px; }
+  .product-price{ display:flex; flex-direction:column; }
+  .product-price strong{ font-size:1.15rem; color:var(--navy); }
+  .product-price small{ color:var(--text-muted); font-size:0.72rem; }
+
+  /* ---------- Why shop ---------- */
+  .why-shop{ padding:56px 24px 88px; }
+  .why-inner{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:start; }
+  .why-badges{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .why-badge{ text-align:left; }
+  .why-badge-icon{ width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+  .why-badge-icon svg{ width:26px; height:26px; }
+  .why-badge h3{ font-size:1rem; margin-bottom:4px; }
+  .why-badge p{ color:var(--text-muted); font-size:0.85rem; margin:0; }
+
+  .testimonial{ background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow); padding:28px; position:relative; }
+  .testimonial-quote-mark{ font-family:'Fredoka',sans-serif; font-size:2.4rem; color:var(--pink-pale); background:var(--rose-deep); -webkit-background-clip:text; background-clip:text; color:var(--rose-deep); line-height:0.5; display:block; margin-bottom:12px; }
+  .testimonial p{ font-size:1rem; color:var(--navy); margin:0 0 18px; }
+  .testimonial-author{ display:flex; align-items:center; gap:12px; }
+  .testimonial-author svg{ width:44px; height:44px; flex-shrink:0; }
+  .testimonial-author span{ display:block; font-family:'Fredoka',sans-serif; font-weight:600; font-size:0.9rem; }
+  .testimonial-author small{ color:var(--text-muted); }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ background:var(--navy); color:rgba(255,255,255,0.82); padding:48px 24px 24px; }
+  .footer-inner{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:32px; max-width:1180px; margin:0 auto 32px; }
+  .footer-inner h3{ color:var(--white); font-size:0.95rem; margin-bottom:14px; }
+  .footer-inner ul li{ margin-bottom:8px; font-size:0.88rem; }
+  .footer-inner .logo{ color:var(--white); margin-bottom:10px; }
+  .footer-inner p{ font-size:0.85rem; margin:0; color:rgba(255,255,255,0.65); }
+  .footer-bottom{
+    max-width:1180px; margin:0 auto; padding-top:20px; border-top:1px solid rgba(255,255,255,0.14);
+    font-size:0.8rem; color:rgba(255,255,255,0.55); display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:space-between;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .why-inner{ grid-template-columns:1fr; }
+    .why-badges{ grid-template-columns:1fr 1fr; }
+    .footer-inner{ grid-template-columns:1fr 1fr; }
+  }
+
+  @media (max-width:768px){
+    .nav-links{
+      position:fixed; inset:64px 0 0 0; background:var(--cream); flex-direction:column; align-items:flex-start;
+      gap:4px; padding:20px 24px; transform:translateY(-8px); opacity:0; pointer-events:none;
+      transition:opacity 0.18s ease, transform 0.18s ease;
+    }
+    .nav-links a{ width:100%; padding:12px 0; border-bottom:1px solid var(--cream-deep); }
+    .site-header.menu-open .nav-links{ opacity:1; transform:translateY(0); pointer-events:auto; }
+    .menu-toggle{ display:flex; }
+    .header-actions .header-icon-link span{ display:none; }
+
+    .hero-inner{ grid-template-columns:1fr; padding:36px 24px 36px; }
+    .hero-art{ order:-1; max-width:260px; margin:0 auto; }
+    .hero-copy p{ max-width:none; }
+
+    .why-badges{ grid-template-columns:1fr; }
+    .footer-inner{ grid-template-columns:1fr; text-align:left; }
+  }
+
+  @media (max-width:480px){
+    .header-inner{ padding:14px 18px; }
+    .trust-bar{ font-size:0.72rem; padding:8px 14px; }
+    .stage-pills{ gap:10px; }
+    .stage-pill{ min-width:130px; padding:12px 16px; }
+    .popular,.skills{ padding-left:18px; padding-right:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ---------- Top trust bar ---------- -->
+<div class="trust-bar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 21c-4-2-7-5.5-7-10a7 7 0 0 1 14 0c0 4.5-3 8-7 10Z"/>
+    <path d="M12 21V11M9 13l3-2 3 2"/>
+  </svg>
+  Every toy hand-picked with child development specialists
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#top" class="logo" aria-label="ToyNest home">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <path d="M13 1L15.2 8.2L22.5 8.9L16.8 13.6L18.6 20.8L13 16.6L7.4 20.8L9.2 13.6L3.5 8.9L10.8 8.2Z" fill="#FFC94A"/>
+      </svg>
+      Toy<span>Nest</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#top">Home</a>
+      <a href="#popular-toys">Shop</a>
+      <a href="#why-us">About Us</a>
+      <a href="#site-footer">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#" class="header-icon-link" aria-label="My account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c1.8-4 5-6 8-6s6.2 2 8 6"/>
+        </svg>
+        <span>My Account</span>
+      </a>
+      <a href="#" class="header-icon-link" aria-label="Cart, 0 items">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="9" cy="21" r="1.4"/>
+          <circle cx="18" cy="21" r="1.4"/>
+          <path d="M2.5 3h2.4l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21.5 7H6"/>
+        </svg>
+        <span>Cart</span>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ---------- Hero ---------- -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.8H21l-5.6 4.1 2.2 6.9L12 15.7 6.4 19.8l2.2-6.9L3 8.8h6.8Z"/></svg>
+          For ages 0–12
+        </span>
+        <h1>Play today. Grow<br>a lifetime.</h1>
+        <p>Every toy in our shop is chosen for what it builds — focus, confidence, curiosity — not just how it looks in a box.</p>
+        <div class="hero-ctas">
+          <a href="#popular-toys" class="btn btn-primary">Shop Now</a>
+          <a href="#skills" class="btn btn-ghost">Shop by skill</a>
+        </div>
+        <div class="hero-trust-row">
+          <div class="hero-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.4 8.3-7 10-3.6-1.7-7-5-7-10V6Z"/><path d="M9 12l2 2 4-4"/></svg>
+            Non-toxic, lab-tested
+          </div>
+          <div class="hero-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21c-4-2-7-5.5-7-10a7 7 0 0 1 14 0c0 4.5-3 8-7 10Z"/><path d="M12 21V11M9 13l3-2 3 2"/></svg>
+            Milestone-mapped picks
+          </div>
+          <div class="hero-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 8.6c0 5.5-6.4 10-8.8 11.4-2.4-1.4-8.8-5.9-8.8-11.4a4.7 4.7 0 0 1 8.8-2.3 4.7 4.7 0 0 1 8.8 2.3Z"/></svg>
+            Loved by 50,000+ families
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 340" fill="none">
+          <ellipse cx="200" cy="300" rx="150" ry="20" fill="rgba(31,59,87,0.08)"/>
+          <g class="float">
+            <path d="M120 260a80 80 0 0 1 160 0" stroke="#F1685C" stroke-width="16" fill="none" stroke-linecap="round"/>
+            <path d="M132 260a68 68 0 0 1 136 0" stroke="#FFC94A" stroke-width="16" fill="none" stroke-linecap="round"/>
+            <path d="M144 260a56 56 0 0 1 112 0" stroke="#4FAE7D" stroke-width="16" fill="none" stroke-linecap="round"/>
+            <path d="M156 260a44 44 0 0 1 88 0" stroke="#4FB3E0" stroke-width="16" fill="none" stroke-linecap="round"/>
+          </g>
+          <g class="float float-slow float-delay">
+            <rect x="20" y="210" width="46" height="46" rx="8" fill="#2C9C93"/>
+            <rect x="30" y="164" width="46" height="46" rx="8" fill="#F2884B"/>
+            <rect x="14" y="118" width="46" height="46" rx="8" fill="#F9D2E0"/>
+          </g>
+          <g class="float float-delay">
+            <circle cx="320" cy="150" r="20" fill="#F2884B"/>
+            <circle cx="303" cy="130" r="9" fill="#F2884B"/>
+            <circle cx="337" cy="130" r="9" fill="#F2884B"/>
+            <circle cx="313" cy="147" r="2.6" fill="#1F3B57"/>
+            <circle cx="327" cy="147" r="2.6" fill="#1F3B57"/>
+            <path d="M314 157q6 6 12 0" stroke="#1F3B57" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+          <g class="float float-slow">
+            <rect x="230" y="230" width="70" height="42" rx="10" fill="#FFC94A"/>
+            <rect x="248" y="206" width="30" height="28" rx="6" fill="#F1685C"/>
+            <circle cx="248" cy="278" r="10" fill="#1F3B57"/>
+            <circle cx="282" cy="278" r="10" fill="#1F3B57"/>
+          </g>
+          <path class="float" d="M60 70l3.6 8 8.4.7-6.4 5.6 1.9 8.3L60 88l-7.5 4.6 1.9-8.3-6.4-5.6 8.4-.7Z" fill="#FFC94A"/>
+          <path class="float float-delay" d="M360 60l2.8 6.2 6.6.6-5 4.4 1.5 6.5-6-3.6-5.9 3.6 1.5-6.5-5-4.4 6.6-.6Z" fill="#F1685C"/>
+          <circle class="float float-slow" cx="30" cy="150" r="5" fill="#4FB3E0"/>
+          <circle class="float" cx="380" cy="220" r="6" fill="#4FAE7D"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Shop by stage ---------- -->
+  <section class="stage-section">
+    <nav class="stage-pills" aria-label="Shop by developmental stage">
+      <a href="#popular-toys" class="stage-pill blue"><strong>Baby 0–2</strong><span>Sensory &amp; bonding</span></a>
+      <a href="#popular-toys" class="stage-pill coral"><strong>Toddler 3–4</strong><span>Language &amp; movement</span></a>
+      <a href="#popular-toys" class="stage-pill green"><strong>Kids 5–7</strong><span>Problem-solving</span></a>
+      <a href="#popular-toys" class="stage-pill teal"><strong>Big Kids 8–12</strong><span>Creativity &amp; confidence</span></a>
+    </nav>
+  </section>
+
+  <!-- ---------- Shop by skill ---------- -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <div class="popular-header">
+        <h2 class="section-title">Shop by skill</h2>
+        <p class="section-lead" style="margin-left:auto;margin-right:auto;">Tell us what you want to nurture, and we'll point you to toys built for it.</p>
+      </div>
+
+      <div class="skill-grid">
+        <a href="#popular-toys" class="skill-card">
+          <div class="skill-icon" style="background:var(--teal-pale);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#22796F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="6" cy="12" r="3"/><circle cx="12" cy="8" r="3"/><circle cx="18" cy="14" r="3"/>
+            </svg>
+          </div>
+          <h3>Fine motor skills</h3>
+          <p>Grasping, stacking &amp; precise little hands</p>
+        </a>
+
+        <a href="#popular-toys" class="skill-card">
+          <div class="skill-icon" style="background:var(--amber-pale);">
+            <svg viewBox="0 0 24 24" fill="#D96A2E" aria-hidden="true"><path d="M12 2l2.2 6.8H21l-5.6 4.1 2.2 6.9L12 15.7 6.4 19.8l2.2-6.9L3 8.8h6.8Z"/></svg>
+          </div>
+          <h3>Creativity &amp; imagination</h3>
+          <p>Open-ended play with no one right answer</p>
+        </a>
+
+        <a href="#popular-toys" class="skill-card">
+          <div class="skill-icon" style="background:var(--coral-pale);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D94B41" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.2" fill="#D94B41" stroke="none"/>
+            </svg>
+          </div>
+          <h3>Problem solving</h3>
+          <p>Puzzles &amp; challenges sized for their age</p>
+        </a>
+
+        <a href="#popular-toys" class="skill-card">
+          <div class="skill-icon" style="background:var(--blue-pale);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2E8FBE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 5h16v11H9l-4 4v-4H4z"/><path d="M8 10h8M8 13h5"/>
+            </svg>
+          </div>
+          <h3>Language &amp; communication</h3>
+          <p>Words, stories &amp; back-and-forth play</p>
+        </a>
+
+        <a href="#popular-toys" class="skill-card">
+          <div class="skill-icon" style="background:var(--pink-pale);">
+            <svg viewBox="0 0 24 24" fill="#C15A80" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.2C.6 8.6 2.2 5 5.8 5c2 0 3.4 1 4.4 2.4C11.2 6 12.6 5 14.6 5c3.6 0 5.2 3.6 3.8 6.8C21 16.4 12 21 12 21Z" transform="scale(0.9) translate(1.3,1.3)"/></svg>
+          </div>
+          <h3>Social &amp; emotional growth</h3>
+          <p>Sharing, patience &amp; understanding feelings</p>
+        </a>
+
+        <a href="#popular-toys" class="skill-card">
+          <div class="skill-icon" style="background:var(--green-pale);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#38946A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2.2h5.2c0-1 .4-1.7 1-2.2A6 6 0 0 0 12 3Z"/>
+            </svg>
+          </div>
+          <h3>Early STEM thinking</h3>
+          <p>Cause, effect &amp; the first taste of how things work</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Popular toys ---------- -->
+  <section class="popular" id="popular-toys">
+    <div class="container">
+      <div class="popular-header">
+        <h2 class="section-title">Popular toys</h2>
+        <p class="section-lead" style="margin-left:auto;margin-right:auto;">This week's most-loved picks, chosen by parents just like you.</p>
+      </div>
+
+      <div class="product-grid">
+
+        <article class="product-card">
+          <div class="product-thumb" style="background:#EAF4FB;">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <rect x="14" y="52" width="72" height="30" rx="8" fill="#FFC94A"/>
+              <rect x="30" y="34" width="24" height="22" rx="5" fill="#F1685C"/>
+              <circle cx="30" cy="86" r="8" fill="#1F3B57"/>
+              <circle cx="62" cy="86" r="8" fill="#1F3B57"/>
+              <circle cx="78" cy="86" r="8" fill="#1F3B57"/>
+              <circle cx="42" cy="45" r="3" fill="#fff"/>
+            </svg>
+          </div>
+          <h3>Musical Choo-Choo Train</h3>
+          <span class="tag" style="background:var(--blue-pale);color:var(--blue-deep);">Language &amp; communication</span>
+          <div class="product-price-row">
+            <div class="product-price"><strong>₹899</strong><small>incl. GST (18%)</small></div>
+            <a href="#" class="btn btn-coral btn-sm">View Details</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-thumb" style="background:#FDF0E6;">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <path d="M20 80a30 30 0 0 1 60 0" stroke="#F1685C" stroke-width="9" fill="none" stroke-linecap="round"/>
+              <path d="M28 80a22 22 0 0 1 44 0" stroke="#FFC94A" stroke-width="9" fill="none" stroke-linecap="round"/>
+              <path d="M36 80a14 14 0 0 1 28 0" stroke="#4FAE7D" stroke-width="9" fill="none" stroke-linecap="round"/>
+              <path d="M44 80a6 6 0 0 1 12 0" stroke="#4FB3E0" stroke-width="9" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Rainbow Stacker</h3>
+          <span class="tag" style="background:var(--teal-pale);color:var(--teal-deep);">Fine motor skills</span>
+          <div class="product-price-row">
+            <div class="product-price"><strong>₹499</strong><small>incl. GST (5%)</small></div>
+            <a href="#" class="btn btn-coral btn-sm">View Details</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-thumb" style="background:#EAF6EF;">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <path d="M22 78c-4-18 6-34 24-36 4-10 22-10 26 0 10 2 16 12 12 22-2 6-8 8-8 14 0 6 4 8 2 12H30c-6 0-8-6-8-12Z" fill="#4FAE7D"/>
+              <path d="M40 42l6-10 6 10" stroke="#38946A" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="66" cy="52" r="3" fill="#1F3B57"/>
+              <path d="M30 80l-6 10M56 80l4 10M74 74l8 8" stroke="#38946A" stroke-width="5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Dino Discovery Set</h3>
+          <span class="tag" style="background:var(--amber-pale);color:var(--orange-deep);">Creativity &amp; imagination</span>
+          <div class="product-price-row">
+            <div class="product-price"><strong>₹1,299</strong><small>incl. GST (5%)</small></div>
+            <a href="#" class="btn btn-teal btn-sm">View Details</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-thumb" style="background:#FDF0F5;">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <rect x="20" y="58" width="26" height="26" rx="6" fill="#2C9C93"/>
+              <rect x="50" y="58" width="26" height="26" rx="6" fill="#F2884B"/>
+              <rect x="35" y="30" width="26" height="26" rx="6" fill="#F1685C"/>
+            </svg>
+          </div>
+          <h3>Creative Building Blocks</h3>
+          <span class="tag" style="background:var(--green-pale);color:var(--green-deep);">Early STEM thinking</span>
+          <div class="product-price-row">
+            <div class="product-price"><strong>₹799</strong><small>incl. GST (5%)</small></div>
+            <a href="#" class="btn btn-teal btn-sm">View Details</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- Why shop with us ---------- -->
+  <section class="why-shop" id="why-us">
+    <div class="container why-inner">
+      <div>
+        <h2 class="section-title" style="margin-bottom:28px;">Why parents trust us</h2>
+        <div class="why-badges">
+          <div class="why-badge">
+            <div class="why-badge-icon" style="background:#E4F1FA;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2E8FBE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l7 3v5c0 5-3.4 8.3-7 10-3.6-1.7-7-5-7-10V6Z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3>Non-toxic &amp; lab-tested</h3>
+            <p>Every material is safety-certified</p>
+          </div>
+          <div class="why-badge">
+            <div class="why-badge-icon" style="background:var(--green-pale);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38946A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 21c-4-2-7-5.5-7-10a7 7 0 0 1 14 0c0 4.5-3 8-7 10Z"/>
+                <path d="M12 21V11M9 13l3-2 3 2"/>
+              </svg>
+            </div>
+            <h3>Grows with your child</h3>
+            <p>Chosen to match real developmental stages</p>
+          </div>
+          <div class="why-badge">
+            <div class="why-badge-icon" style="background:#E8F5EE;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#38946A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 7h11v9H3z"/>
+                <path d="M14 11h4l3 3v2h-7z"/>
+                <circle cx="7.5" cy="18" r="1.7"/>
+                <circle cx="17.5" cy="18" r="1.7"/>
+              </svg>
+            </div>
+            <h3>Fast, reliable delivery</h3>
+            <p>Free shipping on orders over ₹999</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <span class="testimonial-quote-mark" aria-hidden="true">&ldquo;</span>
+        <p>Since we started with the stacking sets, I've watched my son's patience and focus grow right along with his tower. These aren't just toys — they're small daily lessons.</p>
+        <div class="testimonial-author">
+          <svg viewBox="0 0 44 44" aria-hidden="true">
+            <circle cx="22" cy="22" r="22" fill="#F9D2E0"/>
+            <circle cx="16" cy="20" r="2.2" fill="#1F3B57"/>
+            <circle cx="28" cy="20" r="2.2" fill="#1F3B57"/>
+            <path d="M15 27q7 6 14 0" stroke="#1F3B57" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div><span>Priya S.</span><small>Mom of two</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" id="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="logo">Toy<span>Nest</span></div>
+      <p>Toys chosen with early-childhood specialists, delivered across India.</p>
+    </div>
+    <div>
+      <h3>Shop</h3>
+      <ul>
+        <li><a href="#popular-toys">Popular toys</a></li>
+        <li><a href="#skills">Shop by skill</a></li>
+        <li><a href="#popular-toys">Baby 0–2</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Company</h3>
+      <ul>
+        <li><a href="#why-us">About us</a></li>
+        <li><a href="#">Track order</a></li>
+        <li><a href="#">Returns</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <ul>
+        <li>support@toynest.example</li>
+        <li>+91 90000 00000</li>
+        <li>Ahmedabad, Gujarat, IN</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 ToyNest. All rights reserved.</span>
+    <span>GSTIN: 24XXXXX0000X1ZX</span>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = header.classList.toggle('menu-open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      header.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
